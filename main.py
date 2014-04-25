@@ -15,18 +15,30 @@ class MainFrame(wx.Frame):
         button_add_expenses = wx.Button(panel, 1004, 'Add Expenses')
         button_review_expenses = wx.Button(panel, 1005, 'Review Expenses')
         button_calculate_individual_balance = wx.Button(panel, 1006, 'Calculate Individual Balance')
-
+        button_exit_app = wx.Button(panel, 1007, 'Bye')
+        
         #Defining Position of each button
         ## Positions are absolute at the moment...will be made dynamic
         button_view_data.SetPosition((15,15))
         button_add_expenses.SetPosition((15,50))
         button_review_expenses.SetPosition((15,100))
         button_calculate_individual_balance.SetPosition((15,150))
+        button_exit_app.SetPosition((15,200))
 
-        #Show the Main Frame
-        self.Show(True)
+        #Bind Events to buttons
+
+        self.Bind(wx.EVT_BUTTON, self.OnExit, button_exit_app)
+
+
+    #Defining the button events
+
+    def OnExit(self, event):
+            self.Close(True)
+       
 
 
 app = wx.App(False)
 frame = MainFrame(None, 'Hisaab')
+#Show the Main Frame
+frame.Show(True)
 app.MainLoop()
