@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 import wx
-import wx.lib.sized_controls as sc
 
 
 class MainFrame(wx.Frame):
