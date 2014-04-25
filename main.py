@@ -11,11 +11,11 @@ class MainFrame(wx.Frame):
         panel = wx.Panel(self, -1)
 
         #Defining Buttons
-        button_view_data = wx.Button(panel, 1003, "View Total Expenses")
-        button_add_expenses = wx.Button(panel, 1004, 'Add Expenses')
-        button_review_expenses = wx.Button(panel, 1005, 'Review Expenses')
-        button_calculate_individual_balance = wx.Button(panel, 1006, 'Calculate Individual Balance')
-        button_exit_app = wx.Button(panel, 1007, 'Bye')
+        button_view_data = wx.Button(panel, wx.ID_ANY, "View Total Expenses")
+        button_add_expenses = wx.Button(panel, wx.ID_ANY, 'Add Expenses')
+        button_review_expenses = wx.Button(panel, wx.ID_ANY, 'Review Expenses')
+        button_calculate_individual_balance = wx.Button(panel, wx.ID_ANY, 'Calculate Individual Balance')
+        button_exit_app = wx.Button(panel, wx.ID_ANY, 'Bye')
         
         #Defining Position of each button
         ## Positions are absolute at the moment...will be made dynamic
