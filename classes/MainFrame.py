@@ -11,6 +11,7 @@ class MainFrame(wx.Frame):
         panel = wx.Panel(self, -1)
 
         #Defining Buttons
+        button_add_budget = wx.Button(panel, wx.ID_ANY, "Add a New Budget Sheet")
         button_view_data = wx.Button(panel, wx.ID_ANY, "View Total Expenses")
         button_add_expenses = wx.Button(panel, wx.ID_ANY, 'Add Expenses')
         button_review_expenses = wx.Button(panel, wx.ID_ANY, 'Review Expenses')
@@ -26,11 +27,12 @@ class MainFrame(wx.Frame):
 ##        button_exit_app.SetPosition((15,200))
 
         sizer = wx.BoxSizer(wx.VERTICAL)
-        sizer.Add(button_view_data, 1, wx.ALIGN_CENTER, 6)
-        sizer.Add(button_add_expenses, 1, wx.ALIGN_CENTER, 6)
-        sizer.Add(button_review_expenses, 1, wx.ALIGN_CENTER, 6)
-        sizer.Add(button_calculate_individual_balance, 1, wx.ALIGN_CENTER, 6)
-        sizer.Add(button_exit_app, 1, wx.ALIGN_CENTER, 6)
+        sizer.Add(button_add_budget, 1, wx.ALIGN_CENTER, 0)
+        sizer.Add(button_view_data, 1, wx.ALIGN_CENTER, 0)
+        sizer.Add(button_add_expenses, 1, wx.ALIGN_CENTER, 0)
+        sizer.Add(button_review_expenses, 1, wx.ALIGN_CENTER, 0)
+        sizer.Add(button_calculate_individual_balance, 1, wx.ALIGN_CENTER, 0)
+        sizer.Add(button_exit_app, 1, wx.ALIGN_CENTER, 0)
         panel.SetSizer(sizer)
 
         
@@ -46,9 +48,9 @@ class MainFrame(wx.Frame):
        
 
 
-app = wx.App(False)
-frame = MainFrame(None, 'Hisaab')
-#Show the Main Frame in center
-frame.CenterOnScreen()
-frame.Show(True)
-app.MainLoop()
+##app = wx.App(False)
+##frame = MainFrame(None, 'Hisaab')
+###Show the Main Frame in center
+##frame.CenterOnScreen()
+##frame.Show(True)
+##app.MainLoop()
