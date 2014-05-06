@@ -1,5 +1,11 @@
 #!/usr/bin/env python
 import wx
+import sys
+import subprocess
+
+sys.path.append("config")
+
+import create_sheet
 
 
 class MainFrame(wx.Frame):
@@ -39,12 +45,22 @@ class MainFrame(wx.Frame):
         #Bind Events to buttons
 
         self.Bind(wx.EVT_BUTTON, self.OnExit, button_exit_app)
+        self.Bind(wx.EVT_BUTTON,self.AddBudget, button_add_budget)
 
 
     #Defining the button events
 
+    def AddBudget(self, event):
+        print "AddBudget Button Activated!"
+        CreateDBObject = create_sheet.ConnectToDB()
+        CreateDBObject.create_selected_DB()
+        #subprocess.call("config/create_sheet.py", shell=True)
+        print "Done"
+        
     def OnExit(self, event):
-            self.Close(True)
+        print "Exit Button Activated!"
+        self.Close(True)
+        print "Done"
        
 
 
