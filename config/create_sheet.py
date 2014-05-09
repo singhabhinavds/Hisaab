@@ -49,6 +49,8 @@ class ConnectToDB():
             
     def create_selected_DB(self):
         global connection, cursor
+        tables_created_count = 0
+        
         try:
             connection.database = DB_NAME    
         except mysql.connector.Error as err:
@@ -57,7 +59,7 @@ class ConnectToDB():
                 connection.database = DB_NAME
             else:
                 print err
-                exit(1)
+                
         for name, ddl in TABLES.iteritems():
             try:
                 print "Creating table {}: ".format(name)
@@ -65,10 +67,17 @@ class ConnectToDB():
             except mysql.connector.Error as err:
                 if err.errno == errorcode.ER_TABLE_EXISTS_ERROR:
                     print "already exists."
+                    tables_created_count += 1
                 else:
                     print err.msg
             else:
                 print "OK"
+                tables_created_count += 1
 
         cursor.close()
         connection.close()
+
+        if tables_created_count == 2:
+            return True
+        else:
+            return False

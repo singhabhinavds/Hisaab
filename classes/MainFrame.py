@@ -47,8 +47,13 @@ class MainFrame(wx.Frame):
     def AddBudget(self, event):
         print "AddBudget Button Activated!"
         CreateDBObject = create_sheet.ConnectToDB()
-        CreateDBObject.create_selected_DB()
-        print "Done"
+        sheet_created = CreateDBObject.create_selected_DB()
+        if sheet_created == True:
+            #do something
+            wx.MessageBox("Success!! Your Flat Budget Sheet has been Added!!!")
+        else:
+            #do something
+            wx.MessageBox("Aww Crap!!! You will have to Retry!!")
         
     def OnExit(self, event):
         print "Exit Button Activated!"
