@@ -39,7 +39,7 @@ class ConnectToDB():
         connection = mysql.connector.connect(user='root')
         cursor = connection.cursor()
 
-    def create_database(cursor):
+    def create_database(self, cursor):
         try:
             cursor.execute(
                 "CREATE DATABASE {} DEFAULT CHARACTER SET 'utf8'".format(DB_NAME))
@@ -53,7 +53,7 @@ class ConnectToDB():
             connection.database = DB_NAME    
         except mysql.connector.Error as err:
             if err.errno == errorcode.ER_BAD_DB_ERROR:
-                create_database(cursor)
+                self.create_database(cursor)
                 connection.database = DB_NAME
             else:
                 print err

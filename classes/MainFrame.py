@@ -12,7 +12,7 @@ class MainFrame(wx.Frame):
     """Main frame of the appliaction"""
     def __init__(self, parent, title):
         #creating the main frame        
-        wx.Frame.__init__(self, parent, title=title, size=wx.DefaultSize)
+        wx.Frame.__init__(self, parent, title=title, size=wx.DefaultSize, style= wx.SYSTEM_MENU | wx.CAPTION | wx.CLOSE_BOX)
         #creating the panel for buttons/functions
         panel = wx.Panel(self, -1)
 
@@ -25,12 +25,6 @@ class MainFrame(wx.Frame):
         button_exit_app = wx.Button(panel, wx.ID_ANY, 'Bye')
         
         #Defining Position of each button
-        ## Positions are absolute at the moment...will be made dynamic
-##        button_view_data.SetPosition((15,15))
-##        button_add_expenses.SetPosition((15,50))
-##        button_review_expenses.SetPosition((15,100))
-##        button_calculate_individual_balance.SetPosition((15,150))
-##        button_exit_app.SetPosition((15,200))
 
         sizer = wx.BoxSizer(wx.VERTICAL)
         sizer.Add(button_add_budget, 1, wx.ALIGN_CENTER, 0)
@@ -54,7 +48,6 @@ class MainFrame(wx.Frame):
         print "AddBudget Button Activated!"
         CreateDBObject = create_sheet.ConnectToDB()
         CreateDBObject.create_selected_DB()
-        #subprocess.call("config/create_sheet.py", shell=True)
         print "Done"
         
     def OnExit(self, event):
@@ -62,11 +55,3 @@ class MainFrame(wx.Frame):
         self.Close(True)
         print "Done"
        
-
-
-##app = wx.App(False)
-##frame = MainFrame(None, 'Hisaab')
-###Show the Main Frame in center
-##frame.CenterOnScreen()
-##frame.Show(True)
-##app.MainLoop()
