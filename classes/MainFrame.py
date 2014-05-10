@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 import wx
 import sys
-import subprocess
+
+import BudgetSheetGuiGrid
 
 sys.path.append("config")
 
@@ -38,25 +39,26 @@ class MainFrame(wx.Frame):
         
         #Bind Events to buttons
 
+        self.Bind(wx.EVT_BUTTON, self.AddBudget, button_add_budget)
+        self.Bind(wx.EVT_BUTTON, self.ViewBudget, button_view_data)
         self.Bind(wx.EVT_BUTTON, self.OnExit, button_exit_app)
-        self.Bind(wx.EVT_BUTTON,self.AddBudget, button_add_budget)
 
 
     #Defining the button events
 
     def AddBudget(self, event):
-        print "AddBudget Button Activated!"
         CreateDBObject = create_sheet.ConnectToDB()
         sheet_created = CreateDBObject.create_selected_DB()
         if sheet_created == True:
-            #do something
             wx.MessageBox("Success!! Your Flat Budget Sheet has been Added!!!")
         else:
-            #do something
             wx.MessageBox("Aww Crap!!! You will have to Retry!!")
+
+    def ViewBudget(self, event):
+        view_budget_sheet = BudgetSheetGuiGrid.TestFrame(None, sys.stdout)
+        view_budget_sheet.Show(True)
+        
         
     def OnExit(self, event):
-        print "Exit Button Activated!"
         self.Close(True)
-        print "Done"
        

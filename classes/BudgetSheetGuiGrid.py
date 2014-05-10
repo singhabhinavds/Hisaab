@@ -4,7 +4,7 @@ import wx.grid as gridlib
 class BudgetSheetGui(gridlib.PyGridTableBase):
 
     def __init__(self, log):
-        gridlib.PyGridTablesBase(self).__init__(self)
+        gridlib.PyGridTableBase.__init__(self)
         self.log = log
 
         self.odd = gridlib.GridCellAttr()
@@ -19,14 +19,17 @@ class BudgetSheetGui(gridlib.PyGridTableBase):
         return attr
 
 
-    def GetNuberRows(self):
+    def GetNumberRows(self):
         return 100
 
     def GetNumberCols(self):
         return 100
 
     def IsEmptyCell(self, row, col):
-        return str((row,col))
+        return False
+
+    def GetValue(self, row, col):
+        return str((row, col))
 
     def SetValue(self, row, col, value):
         self.log.write('SetValue(%d, %d, "%s") ignored.\n'
@@ -37,20 +40,19 @@ class BudgetSheetGuiGrid(gridlib.Grid):
     def __init__(self, parent, log):
         gridlib.Grid.__init__(self, parent, -1)
 
-        table = HugeTable(log)
+        table = BudgetSheetGui(log)
         self.SetTable(table, True)
 
-        self.Bind(gridlib.EVT_GRID_RIGHT_CLICK, self.OnRightDown)
+        self.Bind(gridlib.EVT_GRID_CELL_RIGHT_CLICK, self.OnRightDown)
 
     def OnRightDown(self, event):
-        print "Hello"
         print self.GetSelectedRows()
 
 class TestFrame(wx.Frame):
 
     def __init__(self, parent, log):
         wx.Frame.__init__(self, parent, -1,
-                          "Huge (virtual) Table Demo", size=(640, 480))
-        grid = HugeTableGrid(self, log)
+                          "Budget Sheet", size=(640, 480))
+        grid = BudgetSheetGuiGrid(self, log)
 
-        grid.SetReadOnly(5, 5, True)
+        #grid.SetReadOnly(5, 5, True)
