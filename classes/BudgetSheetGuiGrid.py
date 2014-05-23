@@ -8,9 +8,9 @@ class BudgetSheetGui(gridlib.PyGridTableBase):
         self.log = log
 
         self.odd = gridlib.GridCellAttr()
-        self.odd.SetBackgroundColour('sky blue')
+        #self.odd.SetBackgroundColour('sky blue')
         self.even = gridlib.GridCellAttr()
-        self.even.SetBackgroundColour("sea green")
+        #self.even.SetBackgroundColour("sea green")
 
 
     def GetAttr(self, row, col, kind):
@@ -29,8 +29,9 @@ class BudgetSheetGui(gridlib.PyGridTableBase):
         return False
 
     def GetValue(self, row, col):
-        return str((row, col))
-
+        #return str((row, col))
+        return 'lol'
+    
     def SetValue(self, row, col, value):
         self.log.write('SetValue(%d, %d, "%s") ignored.\n'
                        % (row, col, value))
