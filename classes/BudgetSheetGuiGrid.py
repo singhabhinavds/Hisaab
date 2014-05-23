@@ -1,9 +1,11 @@
 import wx
 import wx.grid as gridlib
+import mysql.connector
 
 class BudgetSheetGui(gridlib.PyGridTableBase):
 
-    def __init__(self, log):
+    def __init__(self, log, budget_rows_count):
+        print budget_rows_count
         gridlib.PyGridTableBase.__init__(self)
         self.log = log
 
@@ -20,10 +22,10 @@ class BudgetSheetGui(gridlib.PyGridTableBase):
 
 
     def GetNumberRows(self):
-        return 100
+        return 6
 
     def GetNumberCols(self):
-        return 100
+        return 7
 
     def IsEmptyCell(self, row, col):
         return False
@@ -38,10 +40,10 @@ class BudgetSheetGui(gridlib.PyGridTableBase):
 
 class BudgetSheetGuiGrid(gridlib.Grid):
 
-    def __init__(self, parent, log):
+    def __init__(self, parent, log, budget_rows_count):
         gridlib.Grid.__init__(self, parent, -1)
 
-        table = BudgetSheetGui(log)
+        table = BudgetSheetGui(log, budget_rows_count)
         self.SetTable(table, True)
 
         self.Bind(gridlib.EVT_GRID_CELL_RIGHT_CLICK, self.OnRightDown)
@@ -51,9 +53,33 @@ class BudgetSheetGuiGrid(gridlib.Grid):
 
 class TestFrame(wx.Frame):
 
-    def __init__(self, parent, log):
+    def __init__(self, parent, log,DB_NAME):
         wx.Frame.__init__(self, parent, -1,
                           "Budget Sheet", size=(640, 480))
-        grid = BudgetSheetGuiGrid(self, log)
+        
+        DBQuery = BudgetSheetDBQuery(DB_NAME)
+        grid = BudgetSheetGuiGrid(self, log,DBQuery.budget_rows_count)
 
         #grid.SetReadOnly(5, 5, True)
+
+class BudgetSheetDBQuery():
+
+    def __init__(self,dbname):
+        connection = mysql.connector.connect(user='root')
+        cursor = connection.cursor()
+        connection.database = dbname
+
+        query_flatmates = "Select * from flatmates"
+        query_budget_sheet = "Select * from budget_sheet"
+
+        cursor.execute(query_flatmates)
+
+        for (fid, name) in cursor:
+            print "{}, {}".format(fid, name)
+        
+        cursor.execute(query_budget_sheet)
+
+        for (a,b,c,d,e,f) in cursor:
+            print "{},{},{},{},{},{}".format(a,b,c,d,e,f)
+
+        self.budget_rows_count = cursor.rowcount

@@ -55,8 +55,13 @@ class MainFrame(wx.Frame):
             wx.MessageBox("Aww Crap!!! You will have to Retry!!")
 
     def ViewBudget(self, event):
-        view_budget_sheet = BudgetSheetGuiGrid.TestFrame(None, sys.stdout)
+
+        
+        view_budget_sheet = BudgetSheetGuiGrid.TestFrame(None, sys.stdout,
+                                                         create_sheet.DB_NAME)
         view_budget_sheet.Show(True)
+
+        
         
         
     def OnExit(self, event):
