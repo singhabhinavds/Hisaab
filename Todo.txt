@@ -1,0 +1,43 @@
+Todo is organised according to screens. Suggestions from people are most welcome.
+
+0. Whole application == big things
+	a. backend networking part is remaining, planning to do a desktop and mobile applications with database on the web.
+	b. database has been setup but may need improving it.
+
+
+
+
+------------------now screens begin----------------------
+
+
+1. Add a New Budget Sheet
+	a. registering details screen is required.
+	b. have to do something for login , i think will have to make a new screen for it.
+	c. create individual databases for each group of users.
+
+
+
+
+2. View all the data.
+	a. display data from database remaining.
+
+
+
+3. Add expenses.
+	a.Everthing remaining
+
+
+
+4. Review expenses.
+	a.Everthing remaining
+
+
+
+5. Calculate individual Balance.
+	a.Everthing remaining
+
+
+
+
+6. Exit Application
+	a. All done :P
