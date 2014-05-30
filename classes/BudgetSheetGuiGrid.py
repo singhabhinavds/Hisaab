@@ -44,13 +44,13 @@ class BudgetSheetGui(gridlib.PyGridTableBase):
         elif col == 2:
             return self.DBQuery.store_rows_c[row]
         elif col == 3:
-            return self.DBQuery.store_rows_d[row]
+            return self.DBQuery.store_rows_d_name[row]
         elif col == 4:
-            return self.DBQuery.store_rows_e[row]
+            return self.DBQuery.store_rows_e_name[row]
         elif col == 5:
             return self.DBQuery.store_rows_f[row]
         else:
-            #we are displaying on other columns
+            #we are displaying nothing on other columns
             return ''
     
     def SetValue(self, row, col, value):
@@ -99,16 +99,19 @@ class BudgetSheetDBQuery():
         self.store_rows_b = []
         self.store_rows_c = []
         self.store_rows_d = []
+        self.store_rows_d_name = []
         self.store_rows_f = []
         self.store_rows_e = []
+        self.store_rows_e_name = []
         
         query_flatmates = "Select * from flatmates"
         query_budget_sheet = "Select * from budget_sheet"
 
-##        cursor.execute(query_flatmates)
-##
-##        for (fid, name) in cursor:
-##            print "{}, {}".format(fid, name)
+        cursor.execute(query_flatmates)
+
+        dictionary = {}
+        for (fid, name) in cursor:
+            dictionary[fid] = name
         
         cursor.execute(query_budget_sheet)
 
@@ -125,5 +128,26 @@ class BudgetSheetDBQuery():
         self.budget_rows_count = cursor.rowcount
 
         cursor.close()
+        #this works coz there will only be 1 element in each row
+        for i in self.store_rows_d:
+            self.store_rows_d_name.append(dictionary[i])
 
-        #cursor = connection.cursor()
+
+
+
+# temp is for storing final array of names
+#temp2 is for storing values which have more than 1 ID
+        temp=[]
+        temp2=[]
+        for i in self.store_rows_e:
+            if len(i) > 1:
+                #we make sure that split converts only required amount of IDs
+                store = i.encode('utf-8').split(',',(((len(i))//2) +1))
+                for j in store:
+                    temp2.append(dictionary[int(j)])
+                temp.append(temp2)
+                temp2=[]
+            else:
+                temp.append(dictionary[int(i.encode('utf-8'))])
+
+        self.store_rows_e_name = temp
